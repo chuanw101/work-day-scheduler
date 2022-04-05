@@ -1,4 +1,5 @@
 var allTextArea = $("textarea");
+var allSaveButtons = $(".saveBtn");
 
 function updateTime() {
     // get and show date on header
@@ -31,4 +32,40 @@ function updateTime() {
     }
 }
 
+function displayTasks() {
+    var tasksArray = JSON.parse(localStorage.getItem("tasks"));
+    if (!tasksArray) {
+        allTextArea.text("");
+    } else {
+        for(let i=0; i<9; i++) {
+            allTextArea.eq(i).text(tasksArray[i]);
+        }
+    }
+}
+
+allSaveButtons.on('click', function () {
+    // get index and text of current row
+    var index = $(this).parent().index();
+    var task = $(this).parent().find("textarea").val();
+    // grab tasks array
+    var tasksArray = JSON.parse(localStorage.getItem("tasks"));
+    if (!tasksArray) {
+        // create new array and fill in blanks if not set up in localstorage
+        tasksArray=[];
+        for (let i=0; i<9; i++) {
+            if (index === i) {
+                tasksArray.push(task);
+            } else {
+                tasksArray.push("");
+            }
+        }
+    } else {
+        //else splice in the button based on index of button
+        tasksArray.splice(index,1,task);
+    }
+    localStorage.setItem("tasks", JSON.stringify(tasksArray));
+    updateTime();
+});
+
 updateTime();
+displayTasks();
