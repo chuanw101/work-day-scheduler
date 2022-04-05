@@ -35,8 +35,10 @@ function updateTime() {
 function displayTasks() {
     var tasksArray = JSON.parse(localStorage.getItem("tasks"));
     if (!tasksArray) {
+        //nothing saved, just display nothing for all textarea
         allTextArea.text("");
     } else {
+        //loop through the array and display tasks
         for(let i=0; i<9; i++) {
             allTextArea.eq(i).text(tasksArray[i]);
         }
