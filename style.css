@@ -58,6 +58,10 @@ textarea {
     color: white;
 }
 
+.past:focus, .present:focus, .future:focus {
+    color: black;
+}
+
 .saveBtn {
     border-left: 1px solid black;
     border-top-right-radius: 15px;
